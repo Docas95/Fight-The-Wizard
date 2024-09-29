@@ -26,6 +26,8 @@ func player_movement(delta):
 	
 	# Add the gravity.
 	if not is_on_floor():
+		if player_state != "wall jumping":
+			player_state = "jumping"
 		velocity += get_gravity() * delta				
 	
 	# Get the input direction
