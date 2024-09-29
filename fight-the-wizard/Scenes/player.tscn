@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://jkxntlnmkne4"]
+[gd_scene load_steps=31 format=3 uid="uid://jkxntlnmkne4"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_aye35"]
 [ext_resource type="Texture2D" uid="uid://c6mx1j8t6fhy" path="res://Assets/Sprites/knight.png" id="1_hkpyc"]
@@ -91,6 +91,22 @@ region = Rect2(192, 96, 32, 32)
 atlas = ExtResource("1_hkpyc")
 region = Rect2(224, 96, 32, 32)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_nruhp"]
+atlas = ExtResource("1_hkpyc")
+region = Rect2(0, 32, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d7au3"]
+atlas = ExtResource("1_hkpyc")
+region = Rect2(64, 32, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5kr8p"]
+atlas = ExtResource("1_hkpyc")
+region = Rect2(128, 32, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3fhxm"]
+atlas = ExtResource("1_hkpyc")
+region = Rect2(192, 0, 64, 32)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_cu0dm"]
 animations = [{
 "frames": [{
@@ -173,6 +189,23 @@ animations = [{
 "loop": true,
 "name": &"running",
 "speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nruhp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d7au3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5kr8p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3fhxm")
+}],
+"loop": false,
+"name": &"sword",
+"speed": 12.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ekcap"]
@@ -183,9 +216,10 @@ script = ExtResource("1_aye35")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_cu0dm")
-animation = &"jumping"
+animation = &"sword"
 autoplay = "idle"
-frame_progress = 0.981193
+frame = 3
+frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 3.5)
