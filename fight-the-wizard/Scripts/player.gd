@@ -1,9 +1,9 @@
 extends CharacterBody2D
 
 const SPEED = 7500.0
-const JUMP_VELOCITY = -275.0
-const MAX_JUMP_TIME = 0.3
-const MAX_ACTION_TIME = 0.3
+const JUMP_VELOCITY = -280.0
+const WALL_JUMP_TIME = 0.3
+const SWORD_TIME = 0.3
 
 @onready var animated_sprite = $AnimatedSprite2D
 
@@ -12,86 +12,122 @@ enum State{
 	RUNNING,
 	JUMPING,
 	WALL_JUMPING,
-	ATTACKING,
+	SWORD,
 }
 
-var player_state = "idle"
-var wall_jump_time = 0.0
+enum Action{
+	NONE,
+	SWORD
+}
+
+var player_state = State.JUMPING
+var action_1 = Action.SWORD
+var action_2 = Action.NONE
 var direction = 1.0
-var action1 = "sword"
-var action2 = "null"
-var action = ""
-var action_time = 0.0
 
-func player_movement(delta):
-	# end wall jump after X seconds
-	if player_state == "wall jumping":
-		wall_jump_time += delta
-		if wall_jump_time > MAX_JUMP_TIME:
-			player_state = "idle"
-			wall_jump_time = 0.0
-	
-	# Add the gravity.
-	if not is_on_floor():
-		if player_state != "wall jumping":
-			player_state = "jumping"
-		velocity += get_gravity() * delta				
-	
-	# Get the input direction
-	if player_state != "wall jumping":
-		direction = Input.get_axis("walk_left", "walk_right")
-		if player_state != "action":
-			if direction == 0 and is_on_floor():
-				player_state = "idle"
-			elif direction != 0 and is_on_floor():
-				player_state = "running"
-	
-	# Handle jump
-	if Input.is_action_pressed("jump") and (is_on_floor() or is_on_wall()):
-		player_state = "jumping"
-		velocity.y = JUMP_VELOCITY
-		if is_on_wall():
-			player_state = "wall jumping"
-			velocity.x = -direction * SPEED * delta	
-	
-	# Move player
-	if player_state != "wall jumping":
-		if direction:
-			velocity.x = direction * SPEED * delta
-		else:
-			velocity.x = move_toward(velocity.x, 0, SPEED)
+var timing = 0.0
 
-func player_action(delta):
-	if player_state == "action":
-		action_time += delta
-		if action_time > MAX_ACTION_TIME:
-			action_time = 0
-			player_state = "idle"
-	
-	if Input.is_action_just_pressed("action_1") and is_on_floor():
-		player_state = "action"
-		action = action1
+func change_state(state):
+	player_state = state
+	print("Changed state to:" + str(state))
 
-func set_player_animation():
-	# flip sprite based on directional input
+func _physics_process(delta):
+	match player_state:
+		State.IDLE:
+			# check if player wants to move
+			get_player_direction_input()
+			if direction != 0:
+				change_state(State.RUNNING)
+			
+			# check if player wants to jump
+			if get_player_jump_input():
+				jump()
+			
+			# check if player is falling
+			if not is_on_floor():
+				change_state(State.JUMPING)
+			
+			# play idle animation
+			animated_sprite.play("idle")
+		State.RUNNING:
+			#check if player wants to keep moving
+			get_player_direction_input()
+			if direction == 0:
+				change_state(State.IDLE)
+			move_player_horizontal(delta)
+			
+			# check if player wants to jump
+			if get_player_jump_input():
+				jump()
+			
+			# check if player is falling
+			if not is_on_floor():
+				change_state(State.JUMPING)
+			
+			# play running animation
+			animated_sprite.play("running")
+		State.JUMPING:
+			# check if player wants to move
+			get_player_direction_input()
+			move_player_horizontal(delta)
+			
+			# check if player has hit the floor yet
+			if is_on_floor():
+				change_state(State.IDLE)
+			move_player_vertical(delta)
+			
+			# check if player wants to peform a wall jump
+			if is_on_wall() and get_player_jump_input():
+				jump()
+				change_state(State.WALL_JUMPING)
+			
+			# player jumping animation
+			animated_sprite.play("jumping")
+		State.WALL_JUMPING:
+			# end wall jump after a set time
+			timing += delta
+			if timing >= WALL_JUMP_TIME:
+				timing = 0.0
+				change_state(State.JUMPING)
+			
+			# check if player is touching the floor
+			if is_on_floor():
+				timing = 0.0
+				change_state(State.IDLE)
+			
+			# bounce off the wall
+			if timing == delta:
+				direction *= -1
+				
+			# move player
+			move_player_horizontal(delta)
+			move_player_vertical(delta)
+		
+			# play jumping animation
+			animated_sprite.play("jumping")
+	
+	move_and_slide()
+			
+			
+func get_player_direction_input():
+	direction = Input.get_axis("walk_left", "walk_right")
+
+func get_player_jump_input():
+	return Input.is_action_pressed("jump")
+	
+func move_player_horizontal(delta):
 	if direction != 0:
 		if direction > 0:
 			animated_sprite.flip_h = false
 		else:
-			animated_sprite.flip_h = true	
-			
-	match player_state:
-		"idle":
-			animated_sprite.play("idle")
-		"running":
-			animated_sprite.play("running")
-		"jumping", "wall jumping":
-			animated_sprite.play("jumping")
-		"action":
-			animated_sprite.play(action)
+			animated_sprite.flip_h = true
+		velocity.x = direction * SPEED * delta
+	else:
+		velocity.x = move_toward(velocity.x, 0, SPEED)
 
-func _physics_process(delta):
-	player_movement(delta)
-	player_action(delta)
-	set_player_animation()
-	move_and_slide()
+func move_player_vertical(delta):
+	if not is_on_floor():
+		velocity += get_gravity() * delta
+
+func jump():
+	velocity.y = JUMP_VELOCITY

@@ -4,7 +4,6 @@ extends Area2D
 
 func _on_body_entered(_body):
 	text_box.queue_text("A little jump never hurt anyone.")
-	text_box.queue_text("Feel free to jump and fly as much as you'd like!")
 	text_box.visible = true
 	text_box.set_state_ready()
 
