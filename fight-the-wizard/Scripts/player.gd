@@ -1,12 +1,19 @@
 extends CharacterBody2D
 
-
 const SPEED = 7500.0
 const JUMP_VELOCITY = -275.0
 const MAX_JUMP_TIME = 0.3
 const MAX_ACTION_TIME = 0.3
 
 @onready var animated_sprite = $AnimatedSprite2D
+
+enum State{
+	IDLE,
+	RUNNING,
+	JUMPING,
+	WALL_JUMPING,
+	ATTACKING,
+}
 
 var player_state = "idle"
 var wall_jump_time = 0.0

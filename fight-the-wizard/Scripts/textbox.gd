@@ -1,6 +1,6 @@
 extends CanvasLayer
 
-const READ_SPEED = 0.03
+const READ_SPEED = 0.025
 
 @onready var textbox_container = $TextBoxContainer
 @onready var start_symbol = $TextBoxContainer/MarginContainer/HBoxContainer/Start
@@ -9,24 +9,23 @@ const READ_SPEED = 0.03
 @onready var tween = get_tree().create_tween()
 
 enum State{
+	WAITING,
 	READY,
 	READING,
 	FINISHED
 }
 
-var current_state = State.READY
+var current_state = State.WAITING
 var text_queue = []
 
 func _ready():
-	print("Starting state: State.READY")
 	hide_textbox()
-	queue_text("First text has been added!")
-	queue_text("Second text has been added!")
-	queue_text("Third text has been added!")
-	queue_text("Fourth text has been added!")
+	print("Starting state: State.WAITING")
 
-func _process(delta):
+func _process(_delta):
 	match current_state:
+		State.WAITING:
+			pass
 		State.READY:
 			if not text_queue.is_empty():
 				tween = get_tree().create_tween()
@@ -79,3 +78,11 @@ func change_state(state):
 			print("Changed state to: State.READING")
 		State.FINISHED:
 			print("Changed state to: State.FINISHED")
+			
+func set_state_ready():
+	current_state = State.READY
+
+func set_state_finished():
+	while not text_queue.is_empty():
+		text_queue.pop_front()
+	current_state = State.FINISHED
