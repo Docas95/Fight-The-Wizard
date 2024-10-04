@@ -15,11 +15,12 @@ enum State{
 	FINISHED
 }
 
-var current_state = State.WAITING
+var current_state = State.READY
 var text_queue = []
 
 func _ready():
 	hide_textbox()
+	queue_text("uwu")
 	print("Starting state: State.WAITING")
 
 func _process(_delta):

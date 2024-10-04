@@ -1,0 +1,20 @@
+{
+	"exit1":  [
+		"Too late to go back now..."
+	],
+	"sign1": [
+		"A small jump never hurt anyone."
+	],
+	"sign2": [
+		"Do you think you can fight them?",
+		"Do you want to?"
+	],
+	"sign3": [
+		"Despite your heavy armor, you can still",
+		"jump very high.",
+		"Perhaps the laws are different here?"
+	],
+	"exit2":[
+		"Deeper into the cave you go..."
+	]
+}	

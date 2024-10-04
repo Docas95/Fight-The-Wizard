@@ -29,7 +29,7 @@ var timing = 0.0
 
 func change_state(state):
 	player_state = state
-	print("Changed state to:" + str(state))
+	#print("Changed state to:" + str(state))
 
 func _physics_process(delta):
 	match player_state:
