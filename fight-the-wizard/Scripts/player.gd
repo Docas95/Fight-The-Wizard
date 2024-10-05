@@ -20,12 +20,16 @@ enum Action{
 	SWORD
 }
 
+var hp = 3
 var player_state = State.JUMPING
 var action_1 = Action.SWORD
 var action_2 = Action.NONE
 var direction = 1.0
-
 var timing = 0.0
+
+
+func _ready():
+	Signalbus.hurt_player.connect(enemy_hit)
 
 func change_state(state):
 	player_state = state
@@ -131,3 +135,7 @@ func move_player_vertical(delta):
 
 func jump():
 	velocity.y = JUMP_VELOCITY
+
+func enemy_hit():
+	hp -= 1
+	Signalbus.emit_signal("update_player_health", hp)

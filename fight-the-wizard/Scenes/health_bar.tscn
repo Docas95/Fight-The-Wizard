@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=3 uid="uid://obnu7400636o"]
+
+[ext_resource type="Script" path="res://Scripts/health_bar.gd" id="1_c4awl"]
+[ext_resource type="Texture2D" uid="uid://djwg6klyl3dov" path="res://Assets/Sprites/tileset.png" id="1_ny10j"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bpydi"]
+bg_color = Color(0, 0, 0, 0)
+
+[node name="Health Bar" type="CanvasLayer"]
+script = ExtResource("1_c4awl")
+
+[node name="Panel" type="Panel" parent="."]
+offset_right = 141.0
+offset_bottom = 44.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_bpydi")
+
+[node name="Heart" type="Sprite2D" parent="Panel"]
+z_index = 2
+position = Vector2(24, 22)
+scale = Vector2(3, 3)
+texture = ExtResource("1_ny10j")
+region_enabled = true
+region_rect = Rect2(97, 2, 14, 13)
+
+[node name="Heart2" type="Sprite2D" parent="Panel"]
+z_index = 2
+position = Vector2(70, 22)
+scale = Vector2(3, 3)
+texture = ExtResource("1_ny10j")
+region_enabled = true
+region_rect = Rect2(97, 2, 14, 13)
+
+[node name="Heart3" type="Sprite2D" parent="Panel"]
+z_index = 2
+position = Vector2(116, 22)
+scale = Vector2(3, 3)
+texture = ExtResource("1_ny10j")
+region_enabled = true
+region_rect = Rect2(97, 2, 14, 13)
