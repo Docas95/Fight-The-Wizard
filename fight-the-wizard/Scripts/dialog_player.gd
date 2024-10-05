@@ -28,7 +28,7 @@ func on_display_dialog(text_key, xoffset, yoffset):
 		
 		# pause game
 		get_tree().paused = true
-		# diaplyay dialog
+		# display dialog
 		background.visible = true
 		in_progress = true
 		
