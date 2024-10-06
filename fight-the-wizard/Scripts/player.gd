@@ -4,8 +4,11 @@ const SPEED = 7500.0
 const JUMP_VELOCITY = -280.0
 const WALL_JUMP_TIME = 0.3
 const SWORD_TIME = 0.3
+const HURT_TIME = 1.0
 
 @onready var animated_sprite = $AnimatedSprite2D
+@onready var collisions = $CollisionShape2D
+@onready var timer = $Timer
 
 enum State{
 	IDLE,
@@ -13,6 +16,8 @@ enum State{
 	JUMPING,
 	WALL_JUMPING,
 	SWORD,
+	HURT,
+	DEAD
 }
 
 enum Action{
@@ -109,7 +114,27 @@ func _physics_process(delta):
 		
 			# play jumping animation
 			animated_sprite.play("jumping")
-	
+		State.HURT:
+			timing += delta
+			if timing >= HURT_TIME:
+				timing = 0.0;
+				change_state(State.IDLE)
+				
+			# check if player wants to move
+			get_player_direction_input()
+			move_player_horizontal(delta)
+			
+			# check if player wants to jump
+			if get_player_jump_input():
+				jump()
+			move_player_vertical(delta)
+
+			# play hurt animation
+			animated_sprite.play("hurt")
+		State.DEAD:
+			move_player_horizontal(delta)
+			move_player_vertical(delta)
+			
 	move_and_slide()
 			
 			
@@ -138,4 +163,17 @@ func jump():
 
 func enemy_hit():
 	hp -= 1
+	if hp > 0:
+		change_state(State.HURT)
+	else:
+		collisions.queue_free()
+		Engine.time_scale = 0.5
+		timer.start()
+		animated_sprite.play("dead")
+		change_state(State.DEAD)
+		
 	Signalbus.emit_signal("update_player_health", hp)
+
+func _on_timer_timeout():
+	Engine.time_scale = 1.0
+	get_tree().reload_current_scene()
