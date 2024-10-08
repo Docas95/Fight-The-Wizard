@@ -1,0 +1,53 @@
+[gd_scene load_steps=8 format=3 uid="uid://due4r4vsx684x"]
+
+[ext_resource type="Texture2D" uid="uid://c6f7s7sqndmnq" path="res://Assets/Sprites/slime_green.png" id="1_1l5ai"]
+[ext_resource type="Script" path="res://Scripts/Slimes/trigger_slime_fall.gd" id="1_g8xx3"]
+[ext_resource type="Script" path="res://Scripts/Slimes/white_slime_idle.gd" id="1_q05l5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1p740"]
+size = Vector2(14, 4.5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_klp01"]
+atlas = ExtResource("1_1l5ai")
+region = Rect2(0, 108, 24, 27)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_p5am8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_klp01")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gi41j"]
+size = Vector2(16, 14.5)
+
+[node name="white_slime" type="RigidBody2D"]
+disable_mode = 1
+script = ExtResource("1_g8xx3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 5.2)
+shape = SubResource("RectangleShape2D_1p740")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_p5am8")
+animation = &"idle"
+autoplay = "idle"
+flip_v = true
+
+[node name="triggerPlayerDamage" type="Area2D" parent="."]
+collision_mask = 2
+script = ExtResource("1_q05l5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="triggerPlayerDamage"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_gi41j")
+
+[node name="triggerFall" type="Area2D" parent="."]
+
+[connection signal="body_entered" from="triggerPlayerDamage" to="triggerPlayerDamage" method="_on_body_entered"]
+[connection signal="body_entered" from="triggerFall" to="." method="_on_trigger_fall_body_entered"]

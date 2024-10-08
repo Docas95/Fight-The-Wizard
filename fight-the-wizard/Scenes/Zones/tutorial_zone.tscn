@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=4 uid="uid://r58viq4kvu1v"]
+[gd_scene load_steps=26 format=4 uid="uid://r58viq4kvu1v"]
 
 [ext_resource type="PackedScene" uid="uid://ccpil323sc5sd" path="res://Scenes/UI/dialog_player.tscn" id="1_6l2er"]
 [ext_resource type="PackedScene" uid="uid://jkxntlnmkne4" path="res://Scenes/player.tscn" id="2_psjr3"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://Scripts/dialog_trigger.gd" id="6_cl1q3"]
 [ext_resource type="PackedScene" uid="uid://bvptm0vjfn2da" path="res://Scenes/Slimes/slime_green_walk.tscn" id="7_4xva5"]
 [ext_resource type="PackedScene" uid="uid://dctjlfxer34d7" path="res://Scenes/Slimes/white_slime_idle.tscn" id="8_nj6yd"]
+[ext_resource type="PackedScene" uid="uid://due4r4vsx684x" path="res://Scenes/Slimes/white_slime_fall.tscn" id="9_0r1h1"]
 [ext_resource type="PackedScene" uid="uid://dfqp3i4icvn5g" path="res://Scenes/platform.tscn" id="9_xse0l"]
 [ext_resource type="PackedScene" uid="uid://gwxlyfni0f1x" path="res://Scenes/zone_changer.tscn" id="10_rb578"]
 
@@ -427,6 +428,18 @@ size = Vector2(11.5, 84)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dwydd"]
 size = Vector2(14.5, 85)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oyae7"]
+size = Vector2(87, 56)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_32e7r"]
+size = Vector2(13, 60)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wxvoj"]
+size = Vector2(13, 61)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w46hm"]
+size = Vector2(13.5, 62)
+
 [sub_resource type="Animation" id="Animation_kl1cq"]
 length = 0.001
 tracks/0/type = "value"
@@ -444,7 +457,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_1n7mh"]
 resource_name = "move_platform"
-length = 2.0
+length = 1.2
 loop_mode = 2
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -453,7 +466,7 @@ tracks/0/path = NodePath(".:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 2),
+"times": PackedFloat32Array(0, 1.2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(232, 402), Vector2(140, 402)]
@@ -464,9 +477,6 @@ _data = {
 "RESET": SubResource("Animation_kl1cq"),
 "move_platform": SubResource("Animation_1n7mh")
 }
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_oyae7"]
-size = Vector2(87, 56)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0yaxv"]
 size = Vector2(53, 52)
@@ -535,59 +545,6 @@ yoffset = -24
 position = Vector2(-8.5, -8.5)
 shape = SubResource("RectangleShape2D_dwydd")
 
-[node name="Slimes" type="Node" parent="."]
-
-[node name="Slime_Green" parent="Slimes" instance=ExtResource("7_4xva5")]
-position = Vector2(-42, 132)
-move = 90
-speed = 60
-
-[node name="white_slime" parent="Slimes" instance=ExtResource("8_nj6yd")]
-position = Vector2(121, 441.5)
-collision_mask = 2
-
-[node name="white_slime2" parent="Slimes" instance=ExtResource("8_nj6yd")]
-position = Vector2(137, 441.5)
-collision_mask = 2
-
-[node name="white_slime3" parent="Slimes" instance=ExtResource("8_nj6yd")]
-position = Vector2(153, 441.5)
-collision_mask = 2
-
-[node name="white_slime4" parent="Slimes" instance=ExtResource("8_nj6yd")]
-position = Vector2(169, 441.5)
-collision_mask = 2
-
-[node name="white_slime5" parent="Slimes" instance=ExtResource("8_nj6yd")]
-position = Vector2(185, 441.5)
-collision_mask = 2
-
-[node name="white_slime6" parent="Slimes" instance=ExtResource("8_nj6yd")]
-position = Vector2(201, 441.5)
-collision_mask = 2
-
-[node name="white_slime7" parent="Slimes" instance=ExtResource("8_nj6yd")]
-position = Vector2(217, 441.5)
-collision_mask = 2
-
-[node name="white_slime8" parent="Slimes" instance=ExtResource("8_nj6yd")]
-position = Vector2(233, 441.5)
-collision_mask = 2
-
-[node name="white_slime9" parent="Slimes" instance=ExtResource("8_nj6yd")]
-position = Vector2(249, 441.5)
-collision_mask = 2
-
-[node name="Platform" parent="." instance=ExtResource("9_xse0l")]
-position = Vector2(232, 402)
-color = "red"
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Platform"]
-libraries = {
-"": SubResource("AnimationLibrary_bbyuc")
-}
-autoplay = "move_platform"
-
 [node name="Exit2" type="Area2D" parent="."]
 process_mode = 3
 position = Vector2(523, 398)
@@ -599,6 +556,94 @@ yoffset = 72
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Exit2"]
 position = Vector2(54.5, -18)
 shape = SubResource("RectangleShape2D_oyae7")
+
+[node name="Slimes" type="Node" parent="."]
+
+[node name="Slime_Green2" parent="Slimes" instance=ExtResource("7_4xva5")]
+position = Vector2(-15, 300)
+move = 110
+speed = 60
+
+[node name="Slime_Green" parent="Slimes" instance=ExtResource("7_4xva5")]
+position = Vector2(-42, 132)
+move = 90
+speed = 60
+
+[node name="white_slime" parent="Slimes" instance=ExtResource("9_0r1h1")]
+position = Vector2(-110, 255)
+
+[node name="triggerFall" parent="Slimes/white_slime" index="3"]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Slimes/white_slime/triggerFall" index="0"]
+position = Vector2(-16.5, 26)
+shape = SubResource("RectangleShape2D_32e7r")
+
+[node name="white_slime2" parent="Slimes" instance=ExtResource("9_0r1h1")]
+position = Vector2(-24, 255)
+
+[node name="triggerFall" parent="Slimes/white_slime2" index="3"]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Slimes/white_slime2/triggerFall" index="0"]
+position = Vector2(-15.5, 26)
+shape = SubResource("RectangleShape2D_wxvoj")
+
+[node name="white_slime3" parent="Slimes" instance=ExtResource("9_0r1h1")]
+position = Vector2(62, 255)
+
+[node name="triggerFall" parent="Slimes/white_slime3" index="3"]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Slimes/white_slime3/triggerFall" index="0"]
+position = Vector2(-16.25, 26)
+shape = SubResource("RectangleShape2D_w46hm")
+
+[node name="white_slime4" parent="Slimes" instance=ExtResource("8_nj6yd")]
+position = Vector2(121, 441)
+collision_mask = 2
+
+[node name="white_slime5" parent="Slimes" instance=ExtResource("8_nj6yd")]
+position = Vector2(137, 441)
+collision_mask = 2
+
+[node name="white_slime6" parent="Slimes" instance=ExtResource("8_nj6yd")]
+position = Vector2(153, 441)
+collision_mask = 2
+
+[node name="white_slime7" parent="Slimes" instance=ExtResource("8_nj6yd")]
+position = Vector2(169, 441)
+collision_mask = 2
+
+[node name="white_slime8" parent="Slimes" instance=ExtResource("8_nj6yd")]
+position = Vector2(185, 441)
+collision_mask = 2
+
+[node name="white_slime9" parent="Slimes" instance=ExtResource("8_nj6yd")]
+position = Vector2(201, 441)
+collision_mask = 2
+
+[node name="white_slime10" parent="Slimes" instance=ExtResource("8_nj6yd")]
+position = Vector2(217, 441)
+collision_mask = 2
+
+[node name="white_slime11" parent="Slimes" instance=ExtResource("8_nj6yd")]
+position = Vector2(233, 441)
+collision_mask = 2
+
+[node name="white_slime12" parent="Slimes" instance=ExtResource("8_nj6yd")]
+position = Vector2(249, 441)
+collision_mask = 2
+
+[node name="Platform" parent="." instance=ExtResource("9_xse0l")]
+position = Vector2(232, 402)
+color = "red"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Platform"]
+libraries = {
+"": SubResource("AnimationLibrary_bbyuc")
+}
+autoplay = "move_platform"
 
 [node name="zone_changer" parent="." instance=ExtResource("10_rb578")]
 position = Vector2(511, 383)
@@ -612,3 +657,7 @@ shape = SubResource("RectangleShape2D_0yaxv")
 [connection signal="body_entered" from="Exit1/dialog_trigger" to="Exit1/dialog_trigger" method="_on_body_entered"]
 [connection signal="body_exited" from="Exit1/dialog_trigger" to="Exit1/dialog_trigger" method="_on_body_exited"]
 [connection signal="body_entered" from="Exit2" to="Exit2" method="_on_body_entered"]
+
+[editable path="Slimes/white_slime"]
+[editable path="Slimes/white_slime2"]
+[editable path="Slimes/white_slime3"]
