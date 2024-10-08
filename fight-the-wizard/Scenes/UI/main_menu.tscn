@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dwtyrkwtpvksc"]
 
-[ext_resource type="Script" path="res://Scripts/main_menu.gd" id="1_q5yhy"]
-[ext_resource type="FontFile" uid="uid://clcnpu5kgf5qt" path="res://Assets/Fonts/PixelOperator8.ttf" id="1_tln86"]
+[ext_resource type="Script" path="res://Scripts/main_menu.gd" id="1_ydulv"]
+[ext_resource type="FontFile" uid="uid://clcnpu5kgf5qt" path="res://Assets/Fonts/PixelOperator8.ttf" id="2_nl7yk"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -10,7 +10,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_q5yhy")
+script = ExtResource("1_ydulv")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -33,20 +33,20 @@ alignment = 1
 [node name="Play" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_fonts/font = ExtResource("1_tln86")
+theme_override_fonts/font = ExtResource("2_nl7yk")
 text = "Play"
 
 [node name="Controls" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_fonts/font = ExtResource("1_tln86")
+theme_override_fonts/font = ExtResource("2_nl7yk")
 text = "Controls
 "
 
 [node name="Quit" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_fonts/font = ExtResource("1_tln86")
+theme_override_fonts/font = ExtResource("2_nl7yk")
 text = "Quit"
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]
