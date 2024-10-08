@@ -1,8 +1,7 @@
 extends CharacterBody2D
 
 const SPEED = 7500.0
-const JUMP_VELOCITY = -280.0
-const WALL_JUMP_TIME = 0.3
+const JUMP_VELOCITY = -210.0
 const SWORD_TIME = 0.3
 const HURT_TIME = 1.0
 
@@ -14,7 +13,6 @@ enum State{
 	IDLE,
 	RUNNING,
 	JUMPING,
-	WALL_JUMPING,
 	SWORD,
 	HURT,
 	DEAD
@@ -85,34 +83,7 @@ func _physics_process(delta):
 				change_state(State.IDLE)
 			move_player_vertical(delta)
 			
-			# check if player wants to peform a wall jump
-			if is_on_wall() and get_player_jump_input():
-				jump()
-				change_state(State.WALL_JUMPING)
-			
 			# player jumping animation
-			animated_sprite.play("jumping")
-		State.WALL_JUMPING:
-			# end wall jump after a set time
-			timing += delta
-			if timing >= WALL_JUMP_TIME:
-				timing = 0.0
-				change_state(State.JUMPING)
-			
-			# check if player is touching the floor
-			if is_on_floor():
-				timing = 0.0
-				change_state(State.IDLE)
-			
-			# bounce off the wall
-			if timing == delta:
-				direction *= -1
-				
-			# move player
-			move_player_horizontal(delta)
-			move_player_vertical(delta)
-		
-			# play jumping animation
 			animated_sprite.play("jumping")
 		State.HURT:
 			timing += delta

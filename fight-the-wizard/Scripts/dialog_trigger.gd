@@ -14,5 +14,5 @@ func _input(event):
 	if active and event.is_action_pressed("action_1"):
 		Signalbus.emit_signal("display_dialog", dialog_key, xoffset, yoffset)
 
-func _on_body_exited(body):
+func _on_body_exited(_body):
 	active = false
