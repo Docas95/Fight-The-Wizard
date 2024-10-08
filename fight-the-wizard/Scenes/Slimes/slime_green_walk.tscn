@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://bvptm0vjfn2da"]
 
 [ext_resource type="Texture2D" uid="uid://c6f7s7sqndmnq" path="res://Assets/Sprites/slime_green.png" id="1_aim8b"]
-[ext_resource type="Script" path="res://Scripts/slime_green_walk.gd" id="1_w4xwg"]
+[ext_resource type="Script" path="res://Scripts/Slimes/slime_green_walk.gd" id="1_w4xwg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wr35v"]
 size = Vector2(14, 15)
@@ -57,7 +57,8 @@ shape = SubResource("RectangleShape2D_wr35v")
 sprite_frames = SubResource("SpriteFrames_24ryd")
 animation = &"moving"
 autoplay = "moving"
-frame_progress = 0.148624
+frame = 1
+frame_progress = 0.798519
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
