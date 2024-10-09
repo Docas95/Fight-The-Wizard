@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://obnu7400636o" path="res://Scenes/UI/health_bar.tscn" id="3_47433"]
 [ext_resource type="Texture2D" uid="uid://djwg6klyl3dov" path="res://Assets/Sprites/tileset.png" id="4_jtf86"]
 [ext_resource type="PackedScene" uid="uid://b63tw0ys0dqul" path="res://Scenes/sign.tscn" id="5_86dgl"]
-[ext_resource type="Script" path="res://Scripts/dialog_trigger.gd" id="6_cl1q3"]
+[ext_resource type="Script" path="res://Scripts/UI/dialog_trigger.gd" id="6_cl1q3"]
 [ext_resource type="PackedScene" uid="uid://bvptm0vjfn2da" path="res://Scenes/Slimes/slime_green_walk.tscn" id="7_4xva5"]
 [ext_resource type="PackedScene" uid="uid://dctjlfxer34d7" path="res://Scenes/Slimes/white_slime_idle.tscn" id="8_nj6yd"]
 [ext_resource type="PackedScene" uid="uid://due4r4vsx684x" path="res://Scenes/Slimes/white_slime_fall.tscn" id="9_0r1h1"]
@@ -490,6 +490,9 @@ scene_text_file = "res://Assets/Dialogs/Tutorial/world_dialog.json"
 z_index = 1
 position = Vector2(-77, -28)
 
+[node name="WeaponHitbox" parent="Player" index="4"]
+collision_mask = 2
+
 [node name="Camera2D" type="Camera2D" parent="Player"]
 zoom = Vector2(3, 3)
 limit_left = -270
@@ -547,11 +550,11 @@ shape = SubResource("RectangleShape2D_dwydd")
 
 [node name="Exit2" type="Area2D" parent="."]
 process_mode = 3
-position = Vector2(523, 398)
+position = Vector2(501, 455)
 collision_mask = 2
 script = ExtResource("6_cl1q3")
 dialog_key = "exit2"
-yoffset = 72
+yoffset = -72
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Exit2"]
 position = Vector2(54.5, -18)
@@ -561,16 +564,22 @@ shape = SubResource("RectangleShape2D_oyae7")
 
 [node name="Slime_Green2" parent="Slimes" instance=ExtResource("7_4xva5")]
 position = Vector2(-15, 300)
+collision_layer = 5
 move = 110
 speed = 60
 
 [node name="Slime_Green" parent="Slimes" instance=ExtResource("7_4xva5")]
 position = Vector2(-42, 132)
+collision_layer = 5
 move = 90
 speed = 60
 
 [node name="white_slime" parent="Slimes" instance=ExtResource("9_0r1h1")]
 position = Vector2(-110, 255)
+collision_layer = 5
+
+[node name="triggerPlayerDamage" parent="Slimes/white_slime" index="2"]
+collision_layer = 5
 
 [node name="triggerFall" parent="Slimes/white_slime" index="3"]
 collision_mask = 2
@@ -581,6 +590,10 @@ shape = SubResource("RectangleShape2D_32e7r")
 
 [node name="white_slime2" parent="Slimes" instance=ExtResource("9_0r1h1")]
 position = Vector2(-24, 255)
+collision_layer = 5
+
+[node name="triggerPlayerDamage" parent="Slimes/white_slime2" index="2"]
+collision_layer = 5
 
 [node name="triggerFall" parent="Slimes/white_slime2" index="3"]
 collision_mask = 2
@@ -591,6 +604,10 @@ shape = SubResource("RectangleShape2D_wxvoj")
 
 [node name="white_slime3" parent="Slimes" instance=ExtResource("9_0r1h1")]
 position = Vector2(62, 255)
+collision_layer = 5
+
+[node name="triggerPlayerDamage" parent="Slimes/white_slime3" index="2"]
+collision_layer = 5
 
 [node name="triggerFall" parent="Slimes/white_slime3" index="3"]
 collision_mask = 2
@@ -601,38 +618,47 @@ shape = SubResource("RectangleShape2D_w46hm")
 
 [node name="white_slime4" parent="Slimes" instance=ExtResource("8_nj6yd")]
 position = Vector2(121, 441)
+collision_layer = 5
 collision_mask = 2
 
 [node name="white_slime5" parent="Slimes" instance=ExtResource("8_nj6yd")]
 position = Vector2(137, 441)
+collision_layer = 5
 collision_mask = 2
 
 [node name="white_slime6" parent="Slimes" instance=ExtResource("8_nj6yd")]
 position = Vector2(153, 441)
+collision_layer = 5
 collision_mask = 2
 
 [node name="white_slime7" parent="Slimes" instance=ExtResource("8_nj6yd")]
 position = Vector2(169, 441)
+collision_layer = 5
 collision_mask = 2
 
 [node name="white_slime8" parent="Slimes" instance=ExtResource("8_nj6yd")]
 position = Vector2(185, 441)
+collision_layer = 5
 collision_mask = 2
 
 [node name="white_slime9" parent="Slimes" instance=ExtResource("8_nj6yd")]
 position = Vector2(201, 441)
+collision_layer = 5
 collision_mask = 2
 
 [node name="white_slime10" parent="Slimes" instance=ExtResource("8_nj6yd")]
 position = Vector2(217, 441)
+collision_layer = 5
 collision_mask = 2
 
 [node name="white_slime11" parent="Slimes" instance=ExtResource("8_nj6yd")]
 position = Vector2(233, 441)
+collision_layer = 5
 collision_mask = 2
 
 [node name="white_slime12" parent="Slimes" instance=ExtResource("8_nj6yd")]
 position = Vector2(249, 441)
+collision_layer = 5
 collision_mask = 2
 
 [node name="Platform" parent="." instance=ExtResource("9_xse0l")]
@@ -658,6 +684,7 @@ shape = SubResource("RectangleShape2D_0yaxv")
 [connection signal="body_exited" from="Exit1/dialog_trigger" to="Exit1/dialog_trigger" method="_on_body_exited"]
 [connection signal="body_entered" from="Exit2" to="Exit2" method="_on_body_entered"]
 
+[editable path="Player"]
 [editable path="Slimes/white_slime"]
 [editable path="Slimes/white_slime2"]
 [editable path="Slimes/white_slime3"]

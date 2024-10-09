@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://ccpil323sc5sd"]
 
-[ext_resource type="Script" path="res://Scripts/dialog_player.gd" id="1_owfau"]
+[ext_resource type="Script" path="res://Scripts/UI/dialog_player.gd" id="1_owfau"]
 [ext_resource type="Texture2D" uid="uid://e4hvkq26d2g7" path="res://Assets/Sprites/dialogbox.png" id="2_d6273"]
 [ext_resource type="FontFile" uid="uid://clcnpu5kgf5qt" path="res://Assets/Fonts/PixelOperator8.ttf" id="2_kv26j"]
 

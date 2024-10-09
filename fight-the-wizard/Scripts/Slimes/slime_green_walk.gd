@@ -5,16 +5,19 @@ extends Area2D
 @onready var starting_x = self.position.x
 @onready var animated_sprite = $AnimatedSprite2D
 
+var killed = false
+
 enum Directions{
 	LEFT,
 	RIGHT
 }
 var dir = Directions.RIGHT
-
-func _on_body_entered(_body):
-	Signalbus.emit_signal("hurt_player")
 	
 func _process(delta):
+	if killed:
+		self.position.y += delta * speed * 2
+		return
+	
 	if dir == Directions.RIGHT:
 		self.position.x += delta * speed
 		if(self.position.x >= starting_x + move):
@@ -25,5 +28,8 @@ func _process(delta):
 		if(self.position.x <= starting_x - move):
 			dir = Directions.RIGHT
 			animated_sprite.flip_h = false
-			
+	
+# kill slime when hit by player sword		
+func _on_area_entered(_area):
+	killed = true
 	

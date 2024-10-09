@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://obnu7400636o"]
 
-[ext_resource type="Script" path="res://Scripts/health_bar.gd" id="1_c4awl"]
+[ext_resource type="Script" path="res://Scripts/UI/health_bar.gd" id="1_c4awl"]
 [ext_resource type="Texture2D" uid="uid://djwg6klyl3dov" path="res://Assets/Sprites/tileset.png" id="1_ny10j"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bpydi"]
