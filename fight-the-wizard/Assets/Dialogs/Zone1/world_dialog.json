@@ -1,5 +1,14 @@
 {
 	"exit1": [
 		"You can only go forward."
+	],
+	"sign1": [
+		"Watch your head!"
+	],
+	"sign2": [
+		"Not even close, right?."
+	],
+	"sign3": [
+		"Curiosity is a wonderful thing!"
 	]
 }

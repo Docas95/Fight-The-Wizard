@@ -1,18 +1,16 @@
 {
 	"exit1":  [
-		"Too late to go back now..."
+		"You can only go forward."
 	],
 	"sign1": [
-		"You shouldn't have come...",
-		"The deeper you go...",
-		"The worse it gets."
+		"Hope you like slimes.",
+		"If not, why even com here?"
 	],
 	"sign2": [
-		"Fight or flight?",
-		"Different enemies require different strats.",
-		"You can harm the green ones but not the whites."
+		"Greens move and can be killed.",
+		"Whites are unkillable but they don't move."
 	],
 	"exit2":[
-		"Deeper into the cave you go..."
+		"Deeper into the cave you go!"
 	]
 }	

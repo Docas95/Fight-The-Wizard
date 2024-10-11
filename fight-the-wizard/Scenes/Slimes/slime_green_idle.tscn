@@ -1,0 +1,70 @@
+[gd_scene load_steps=10 format=3 uid="uid://dyuguucvp3qon"]
+
+[ext_resource type="Script" path="res://Scripts/Slimes/slime_green_idle.gd" id="1_rp5rl"]
+[ext_resource type="Texture2D" uid="uid://c6f7s7sqndmnq" path="res://Assets/Sprites/slime_green.png" id="2_q3m2i"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wr35v"]
+size = Vector2(14, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jtv7o"]
+atlas = ExtResource("2_q3m2i")
+region = Rect2(0, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7l2i0"]
+atlas = ExtResource("2_q3m2i")
+region = Rect2(24, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pv10t"]
+atlas = ExtResource("2_q3m2i")
+region = Rect2(48, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0vj03"]
+atlas = ExtResource("2_q3m2i")
+region = Rect2(72, 24, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_24ryd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jtv7o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7l2i0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pv10t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0vj03")
+}],
+"loop": true,
+"name": &"moving",
+"speed": 12.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cycgu"]
+size = Vector2(6, 6)
+
+[node name="Slime_Green" type="Area2D"]
+collision_mask = 2
+script = ExtResource("1_rp5rl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 4.5)
+shape = SubResource("RectangleShape2D_wr35v")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_24ryd")
+animation = &"moving"
+autoplay = "moving"
+frame = 1
+frame_progress = 0.798519
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_cycgu")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
