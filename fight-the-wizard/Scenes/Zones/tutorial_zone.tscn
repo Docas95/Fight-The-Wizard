@@ -550,11 +550,11 @@ shape = SubResource("RectangleShape2D_dwydd")
 
 [node name="Exit2" type="Area2D" parent="."]
 process_mode = 3
-position = Vector2(501, 455)
+position = Vector2(502, 399)
 collision_mask = 2
 script = ExtResource("6_cl1q3")
 dialog_key = "exit2"
-yoffset = -72
+xoffset = 250
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Exit2"]
 position = Vector2(54.5, -18)
@@ -672,7 +672,7 @@ libraries = {
 autoplay = "move_platform"
 
 [node name="zone_changer" parent="." instance=ExtResource("10_rb578")]
-position = Vector2(511, 383)
+position = Vector2(492, 383)
 collision_mask = 2
 new_zone = "res://Scenes/Zones/first_zone.tscn"
 
