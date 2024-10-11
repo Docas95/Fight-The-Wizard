@@ -1,29 +1,37 @@
 # Fight-The-Wizard
 A 2D side scroller game made with Godot.
 
+
 ## What's this game about?
 
-Like that title says... you fight a wizard!
+This is a small game about a cave cursed by a wizard. You control a knight that is exploring the cave in order to fight and defeat the wizard.
 
-A long time ago, a wizard went mad and trapped the people of his kingdom inside a cursed dungeon. Thankfully, after many years of pain and suffering, a brave knight is here to save the day.
-
-In this game, you get to explore the cursed dungeon, fight enemies and receive help from the people the wizar trapped. Eventually, if you're skilled enough, you will find the Wizard's castle and fight him.
+It's a simple game with simple mechanics. It was made for educational purposes.
 
 
 ## How far along in progress is this game?
 
-As of today (29-09-2024) the game is about 5% complete.
+As of today (11-10-2024) the game is about 30% complete.
 
-### Current to-do list
 
-- Polish player movement Script
-- Implement a basic fighting system
-- Implement game UI (start screen, inventory, HP bar, pause menu)
+### To-do list
+
+- Finish implementing the Start Menu
+- Implement Pause Menu
+- Implement progress saving mechanism
+- Create more types of weapons for player
+- Implement Inventory System
+- Implement a Shop System
+- Create more types of enemies
+- Implement boss battle
+
 
 ## Why did you make this game?
 
 I wanted to learn how to use the Godot Engine to make cool games.
+But making cool games with no experience is hard, so I'm making a small, simple game first-
 Eventually I would like to be able to contribute to Godot, since it's an Open Source program.
+
 
 ## Credits
 
