@@ -30,6 +30,7 @@ var action_1 = Action.SWORD
 var action_2 = Action.NONE
 var direction = 1.0
 var timing = 0.0
+var jump_count = 0
 
 
 func _ready():
@@ -97,8 +98,13 @@ func _physics_process(delta):
 			
 			# check if player has hit the floor yet
 			if is_on_floor():
+				jump_count = 0
 				change_state(State.IDLE)
 			move_player_vertical(delta)
+			
+			# double jump
+			if get_player_jump_input() and jump_count < 2:
+				jump()
 			
 			# check if player is performing action 1
 			if Input.is_action_just_pressed("action_1"):
@@ -163,7 +169,7 @@ func get_player_direction_input():
 	direction = Input.get_axis("walk_left", "walk_right")
 
 func get_player_jump_input():
-	return Input.is_action_pressed("jump")
+	return Input.is_action_just_pressed("jump")
 	
 func move_player_horizontal(delta):
 	if direction != 0:
@@ -183,6 +189,9 @@ func move_player_vertical(delta):
 
 func jump():
 	velocity.y = JUMP_VELOCITY
+	if(jump_count == 1):
+		velocity.y += JUMP_VELOCITY * 0.2
+	jump_count += 1
 
 func change_state_to_action(action):
 	match action:

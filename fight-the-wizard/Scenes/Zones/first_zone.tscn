@@ -243,7 +243,7 @@ size = Vector2(20, 51)
 size = Vector2(20, 55)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gf458"]
-size = Vector2(20, 16)
+size = Vector2(20, 93)
 
 [node name="first_zone" type="Node2D"]
 
@@ -283,11 +283,6 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Exit1/StaticBody2D"]
 position = Vector2(-7, -18)
 shape = SubResource("RectangleShape2D_vs1h3")
-
-[node name="Slime_Green2" parent="Exit1" instance=ExtResource("6_borhi")]
-position = Vector2(429, -2)
-move = 35
-speed = 40
 
 [node name="Slimes" type="Node" parent="."]
 
@@ -354,12 +349,17 @@ position = Vector2(223, -37)
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Slimes/white_slime16/triggerFall" index="0"]
-position = Vector2(0, 103)
+position = Vector2(0, 64.5)
 shape = SubResource("RectangleShape2D_gf458")
 
 [node name="white_slime15" parent="Slimes" instance=ExtResource("5_g1tsq")]
 position = Vector2(323, 148)
 collision_layer = 5
+
+[node name="Slime_Green2" parent="Slimes" instance=ExtResource("6_borhi")]
+position = Vector2(385, 6)
+move = 35
+speed = 40
 
 [connection signal="body_entered" from="Exit1" to="Exit1" method="_on_body_entered"]
 [connection signal="body_exited" from="Exit1" to="Exit1" method="_on_body_exited"]
